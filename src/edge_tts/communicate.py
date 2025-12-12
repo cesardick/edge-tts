@@ -427,7 +427,6 @@ class Communicate:
         audio_was_received = False
 
         # Create a new connection to the service.
-        ssl_ctx = ssl.create_default_context(cafile=certifi.where())
         async with aiohttp.ClientSession(
             connector=self.connector,
             trust_env=True,
@@ -439,7 +438,7 @@ class Communicate:
             compress=15,
             proxy=self.proxy,
             headers=DRM.headers_with_muid(WSS_HEADERS),
-            ssl=ssl_ctx,
+            ssl=False,
         ) as websocket:
             await send_command_request()
 
